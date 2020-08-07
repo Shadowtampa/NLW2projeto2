@@ -1,30 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { AppLoading } from "expo";
+import {
+  Archivo_700Bold,
+  Archivo_400Regular,
+  useFonts,
+} from "@expo-google-fonts/archivo";
+import {
+  Poppins_400Regular,
+  Poppins_600SemiBold,
+} from "@expo-google-fonts/poppins";
+
+import AppStack from "./src/routes/AppStack";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}> App das Aliciãs</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  let [fontsLoaded] = useFonts({
+    Archivo_400Regular,
+    Archivo_700Bold,
+    Poppins_400Regular,
+    Poppins_600SemiBold,
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#082',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  title: {
-    fontSize: 32,
-    color: '#fff',
-    fontWeight: 'bold',
-    transform: [
-      {rotateY: '30deg'}
-    ]
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <>
+        <AppStack />
+        <StatusBar style="light" />
+      </>
+    );
   }
-});
+}
